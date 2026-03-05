@@ -1,1 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electrical Quantities – Exam Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --blue:#1a3a6b; --accent:#e8f0fb; --border:#b0c4de; --text:#1a1a1a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Source Sans 3',sans-serif; font-size:13.5px; color:var(--text); background:#f4f6f9; padding:30px 20px; }
+
+  .student-bar {
+    background:white; max-width:800px; margin:0 auto 16px; padding:18px 32px;
+    border-radius:6px; box-shadow:0 2px 10px rgba(0,0,0,0.08); border-left:6px solid var(--blue);
+    display:flex; gap:20px; flex-wrap:wrap; align-items:center;
+  }
+  .student-bar label { font-weight:700; color:var(--blue); font-size:13px; margin-right:6px; }
+  .student-bar input {
+    border:none; border-bottom:2px solid var(--border); padding:4px 8px; font-size:13px;
+    width:180px; background:transparent; font-family:'Source Sans 3',sans-serif; outline:none;
+  }
+  .student-bar input:focus { border-bottom-color:var(--blue); }
+
+  .page {
+    background:white; max-width:800px; margin:0 auto 40px; padding:40px 48px;
+    box-shadow:0 4px 24px rgba(0,0,0,0.10); border-top:6px solid var(--blue);
+  }
+  .page-header {
+    display:flex; justify-content:space-between; align-items:center;
+    background:var(--blue); color:white; padding:10px 16px; margin:-40px -48px 28px;
+    font-family:'Source Serif 4',serif; font-size:13px; font-weight:700;
+    letter-spacing:0.06em; text-transform:uppercase;
+  }
+  .section-title {
+    display:flex; align-items:center; gap:14px;
+    margin:0 -48px 28px; padding:14px 48px; background:var(--blue); color:white;
+  }
+  .section-title .num { font-family:'Source Serif 4',serif; font-size:2.2rem; font-weight:700; line-height:1; }
+  .section-title .label { font-size:1.2rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; }
+
+  .question { margin-bottom:28px; padding-bottom:24px; border-bottom:1px solid #e4eaf2; }
+  .question:last-child { border-bottom:none; }
+  .q-row { display:flex; gap:10px; margin-bottom:8px; align-items:flex-start; }
+  .q-num { font-weight:700; min-width:22px; color:var(--blue); font-size:14px; }
+  .q-letter { font-weight:600; min-width:18px; color:#444; }
+  .q-text { flex:1; line-height:1.6; }
+  .marks {
+    font-weight:600; color:#555; white-space:nowrap; font-size:12px;
+    padding:2px 7px; background:var(--accent); border:1px solid var(--border);
+    border-radius:3px; align-self:flex-start; margin-left:6px;
+  }
+  .total-marks { font-weight:700; text-align:right; margin-top:10px; font-size:13px; color:var(--blue); }
+
+  textarea {
+    width:100%; margin:8px 0 4px 0; border:1px solid #ccd6e8; border-radius:4px;
+    padding:10px 12px; font-family:'Source Sans 3',sans-serif; font-size:13.5px;
+    color:var(--text); background:#fafcff; resize:vertical; line-height:1.7; outline:none;
+    transition:border-color 0.2s;
+  }
+  textarea:focus { border-color:var(--blue); background:white; }
+
+  .options { margin:10px 0 6px 32px; }
+  .option {
+    display:flex; align-items:flex-start; gap:12px; margin-bottom:8px;
+    cursor:pointer; padding:6px 10px; border-radius:4px; transition:background 0.15s;
+  }
+  .option:hover { background:var(--accent); }
+  .option input[type="radio"] { margin-top:2px; width:16px; height:16px; accent-color:var(--blue); cursor:pointer; flex-shrink:0; }
+  .option .opt-letter { font-weight:700; min-width:18px; color:var(--blue); }
+  .option span { line-height:1.5; }
+
+  table { border-collapse:collapse; margin:10px 0 6px 32px; font-size:13px; }
+  th,td { border:1px solid #888; padding:6px 16px; text-align:center; }
+  th { background:var(--accent); font-weight:700; }
+  td:first-child { font-weight:700; }
+
+  .graphs-row { display:flex; gap:32px; margin:12px 0 6px 32px; flex-wrap:wrap; }
+  .graph-box { display:flex; flex-direction:column; align-items:center; gap:4px; }
+  .graph-label { font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--blue); }
+
+  .submit-section {
+    background:white; max-width:800px; margin:0 auto 40px; padding:28px 40px;
+    border-radius:6px; box-shadow:0 4px 16px rgba(0,0,0,0.08); border-top:4px solid #27ae60; text-align:center;
+  }
+  .submit-section h3 { color:var(--blue); font-size:16px; margin-bottom:8px; }
+  .submit-section p { color:#555; font-size:13px; margin-bottom:18px; }
+  .email-row { display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap; margin-bottom:16px; }
+  .email-row input {
+    border:2px solid var(--border); border-radius:4px; padding:8px 14px; font-size:13px;
+    width:280px; font-family:'Source Sans 3',sans-serif; outline:none;
+  }
+  .email-row input:focus { border-color:var(--blue); }
+  .btn-submit {
+    background:#27ae60; color:white; border:none; border-radius:5px;
+    padding:10px 28px; font-size:14px; font-weight:700; cursor:pointer;
+    font-family:'Source Sans 3',sans-serif; transition:background 0.2s,transform 0.1s;
+  }
+  .btn-submit:hover { background:#219150; transform:translateY(-1px); }
+  .success-msg {
+    display:none; background:#eafaf1; border:1px solid #27ae60; border-radius:5px;
+    padding:14px 20px; color:#1e8449; font-weight:600; margin-top:12px; font-size:14px;
+  }
+  @media (max-width:600px) {
+    .page { padding:24px 18px; }
+    .page-header { margin:-24px -18px 20px; }
+    .section-title { margin:0 -18px 20px; padding:12px 18px; }
+    body { padding:16px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="student-bar">
+  <div><label for="sName">Student Name:</label><input type="text" id="sName" placeholder="Your full name"></div>
+  <div><label for="sClass">Class:</label><input type="text" id="sClass" placeholder="e.g. 10B" style="width:100px"></div>
+  <div><label for="sDate">Date:</label><input type="date" id="sDate"></div>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="page-header"><span>Electrical Quantities</span><span>Exam Practice</span><span>171</span></div>
+
+  <div class="question">
+    <div class="q-row"><span class="q-num">10</span><span class="q-letter">(a)</span><span class="q-text">State Ohm's law.</span><span class="marks">[2]</span></div>
+    <textarea id="q10a" rows="3" placeholder="Write your answer here..."></textarea>
+
+    <div class="q-row" style="margin-top:14px;"><span class="q-num"></span><span class="q-letter">(b)</span><span class="q-text">Using the axes below, sketch graphs to show how resistance varies with potential difference for a fixed resistor and a 1.5 V filament lamp. <em>Describe what each graph would look like in the box below.</em></span><span class="marks">[2]</span></div>
+    <div class="graphs-row">
+      <div class="graph-box">
+        <svg width="160" height="150" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="10" width="120" height="110" fill="#f9fbff" stroke="#ddd"/>
+          <line x1="30" y1="10" x2="30" y2="120" stroke="#333" stroke-width="1.5"/>
+          <line x1="30" y1="120" x2="150" y2="120" stroke="#333" stroke-width="1.5"/>
+          <polygon points="30,8 26,16 34,16" fill="#333"/><polygon points="152,120 144,116 144,124" fill="#333"/>
+          <text x="8" y="70" font-size="10" fill="#333" font-family="serif" transform="rotate(-90,18,70)">Resistance</text>
+          <text x="48" y="138" font-size="9" fill="#333">Potential difference / V</text>
+          <text x="143" y="133" font-size="9" fill="#333">1.5</text><text x="28" y="133" font-size="9" fill="#333">0</text>
+          <line x1="148" y1="118" x2="148" y2="122" stroke="#333" stroke-width="1"/>
+        </svg>
+        <div class="graph-label">Fixed Resistor</div>
+      </div>
+      <div class="graph-box">
+        <svg width="160" height="150" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="10" width="120" height="110" fill="#f9fbff" stroke="#ddd"/>
+          <line x1="30" y1="10" x2="30" y2="120" stroke="#333" stroke-width="1.5"/>
+          <line x1="30" y1="120" x2="150" y2="120" stroke="#333" stroke-width="1.5"/>
+          <polygon points="30,8 26,16 34,16" fill="#333"/><polygon points="152,120 144,116 144,124" fill="#333"/>
+          <text x="8" y="70" font-size="10" fill="#333" font-family="serif" transform="rotate(-90,18,70)">Resistance</text>
+          <text x="48" y="138" font-size="9" fill="#333">Potential difference / V</text>
+          <text x="143" y="133" font-size="9" fill="#333">1.5</text><text x="28" y="133" font-size="9" fill="#333">0</text>
+          <line x1="148" y1="118" x2="148" y2="122" stroke="#333" stroke-width="1"/>
+        </svg>
+        <div class="graph-label">Filament Lamp</div>
+      </div>
+    </div>
+    <textarea id="q10b" rows="3" placeholder="Describe the shape of each graph..."></textarea>
+
+    <div class="q-row" style="margin-top:14px;"><span class="q-num"></span><span class="q-letter">(c)</span><span class="q-text">The filament of a lamp is made of metal. Explain why the lamp does not demonstrate Ohm's law.</span><span class="marks">[2]</span></div>
+    <textarea id="q10c" rows="3" placeholder="Write your answer here..."></textarea>
+    <div class="total-marks">(Total for Question 10 = 6 marks)</div>
+  </div>
+
+  <div class="question">
+    <div class="q-row"><span class="q-num">11</span><span class="q-text">The graph shows the current–potential difference characteristic for an electrical component.</span></div>
+    <div style="margin:12px 0 8px 24px;">
+      <svg width="320" height="220" xmlns="http://www.w3.org/2000/svg">
+        <rect x="30" y="10" width="280" height="190" fill="#f9fbff" stroke="#ccc"/>
+        <line x1="75" y1="10" x2="75" y2="200" stroke="#dde" stroke-width="0.7"/>
+        <line x1="120" y1="10" x2="120" y2="200" stroke="#dde" stroke-width="0.7"/>
+        <line x1="210" y1="10" x2="210" y2="200" stroke="#dde" stroke-width="0.7"/>
+        <line x1="255" y1="10" x2="255" y2="200" stroke="#dde" stroke-width="0.7"/>
+        <line x1="30" y1="48" x2="310" y2="48" stroke="#dde" stroke-width="0.7"/>
+        <line x1="30" y1="86" x2="310" y2="86" stroke="#dde" stroke-width="0.7"/>
+        <line x1="30" y1="124" x2="310" y2="124" stroke="#dde" stroke-width="0.7"/>
+        <line x1="165" y1="10" x2="165" y2="205" stroke="#333" stroke-width="1.8"/>
+        <line x1="25" y1="162" x2="315" y2="162" stroke="#333" stroke-width="1.8"/>
+        <polygon points="165,8 161,16 169,16" fill="#333"/>
+        <polygon points="317,162 309,158 309,166" fill="#333"/>
+        <text x="170" y="18" font-size="10" fill="#333" font-family="sans-serif">Current / A</text>
+        <text x="240" y="215" font-size="9" fill="#333">Potential difference / V</text>
+        <text x="10" y="130" font-size="9" fill="#444">0.1</text><text x="10" y="92" font-size="9" fill="#444">0.2</text>
+        <text x="10" y="54" font-size="9" fill="#444">0.4</text><text x="7" y="166" font-size="9" fill="#444">0.5</text>
+        <text x="68" y="175" font-size="9" fill="#444">−0.4</text><text x="113" y="175" font-size="9" fill="#444">−0.2</text>
+        <text x="163" y="175" font-size="9" fill="#444">0</text><text x="205" y="175" font-size="9" fill="#444">0.2</text>
+        <text x="248" y="175" font-size="9" fill="#444">0.4</text><text x="285" y="175" font-size="9" fill="#444">0.6</text>
+        <path d="M30,162 L155,161 Q163,161 168,159 Q200,155 220,130 Q240,100 255,60 Q265,30 270,15" fill="none" stroke="#1a3a6b" stroke-width="2.5"/>
+      </svg>
+    </div>
+    <div class="q-row"><span class="q-num"></span><span class="q-letter">(a)</span><span class="q-text">State the name of the component.</span><span class="marks">[1]</span></div>
+    <textarea id="q11a" rows="2" placeholder="Component name..."></textarea>
+    <div class="q-row" style="margin-top:10px;"><span class="q-num"></span><span class="q-letter">(b)</span><span class="q-text">State the resistance of the component when the potential difference is −0.7 V.</span><span class="marks">[1]</span></div>
+    <textarea id="q11b" rows="2" placeholder="Resistance = ..."></textarea>
+    <div class="q-row" style="margin-top:10px;"><span class="q-num"></span><span class="q-letter">(c)</span><span class="q-text">Calculate the resistance of the component when the potential difference is +0.7 V.</span><span class="marks">[2]</span></div>
+    <textarea id="q11c" rows="3" placeholder="Show your working..."></textarea>
+    <div class="q-row" style="margin-top:10px;"><span class="q-num"></span><span class="q-letter">(d)</span><span class="q-text">State a practical use for this component.</span><span class="marks">[1]</span></div>
+    <textarea id="q11d" rows="2" placeholder="Practical use..."></textarea>
+    <div class="total-marks">(Total for Question 11 = 5 marks)</div>
+  </div>
+
+  <div class="question">
+    <div class="q-row"><span class="q-num">12</span><span class="q-text">A pen which has ink that conducts electricity is used to draw a circle.</span></div>
+    <div style="text-align:center; margin:14px 0;">
+      <svg width="180" height="110" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="90" cy="55" r="45" fill="none" stroke="#222" stroke-width="3"/>
+        <text x="36" y="58" font-size="13" font-weight="bold" fill="#222" font-family="sans-serif">A</text>
+        <text x="133" y="58" font-size="13" font-weight="bold" fill="#222" font-family="sans-serif">B</text>
+      </svg>
+      <div style="font-size:12px; color:#555; margin-top:4px;">The diameter from point A to point B across the circle is 25.0 cm</div>
+    </div>
+    <div class="q-row"><span class="q-num"></span><span class="q-letter">(a)</span><span class="q-text">Describe an experimental method to measure the resistance of the ink circle between points A and B.</span><span class="marks">[3]</span></div>
+    <textarea id="q12a" rows="5" placeholder="Describe your method step by step..."></textarea>
+    <div class="q-row" style="margin-top:12px;"><span class="q-num"></span><span class="q-letter">(b)</span><span class="q-text">How would the resistance between points A and B change if the circle was redrawn with the ink line twice the width, but with the same size circle and the same depth of ink on the paper?</span><span class="marks">[2]</span></div>
+    <textarea id="q12b" rows="3" placeholder="Explain what would happen to the resistance and why..."></textarea>
+    <div class="total-marks">(Total for Question 12 = 5 marks)</div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="section-title"><span class="num">4A</span><span class="label">Exam Practice</span></div>
+
+  <div class="question">
+    <div class="q-row"><span class="q-num">1</span><span class="q-text">Which of the following is a unit equivalent to the volt?</span><span class="marks">[1]</span></div>
+    <div class="options">
+      <label class="option"><input type="radio" name="q1" value="A"><span class="opt-letter">A</span><span>A h</span></label>
+      <label class="option"><input type="radio" name="q1" value="B"><span class="opt-letter">B</span><span>C s<sup>−1</sup></span></label>
+      <label class="option"><input type="radio" name="q1" value="C"><span class="opt-letter">C</span><span>J C<sup>−1</sup></span></label>
+      <label class="option"><input type="radio" name="q1" value="D"><span class="opt-letter">D</span><span>J s<sup>−1</sup></span></label>
+    </div>
+    <div class="total-marks">(Total for Question 1 = 1 mark)</div>
+  </div>
+
+  <div class="question">
+    <div class="q-row"><span class="q-num">2</span><span class="q-text">An ammeter reads 1.42 A. How many electrons pass through the ammeter in one hour?</span><span class="marks">[1]</span></div>
+    <div class="options">
+      <label class="option"><input type="radio" name="q2" value="A"><span class="opt-letter">A</span><span>5.1 × 10<sup>3</sup></span></label>
+      <label class="option"><input type="radio" name="q2" value="B"><span class="opt-letter">B</span><span>8.9 × 10<sup>18</sup></span></label>
+      <label class="option"><input type="radio" name="q2" value="C"><span class="opt-letter">C</span><span>5.3 × 10<sup>20</sup></span></label>
+      <label class="option"><input type="radio" name="q2" value="D"><span class="opt-letter">D</span><span>3.2 × 10<sup>22</sup></span></label>
+    </div>
+    <div class="total-marks">(Total for Question 2 = 1 mark)</div>
+  </div>
+
+  <div class="question">
+    <div class="q-row"><span class="q-num">3</span><span class="q-text">Which of the following is a correct explanation for the shape of a current/voltage graph for a filament bulb?</span><span class="marks">[1]</span></div>
+    <div class="options">
+      <label class="option"><input type="radio" name="q3" value="A"><span class="opt-letter">A</span><span>Below a certain temperature, the resistivity of the filament material suddenly reduces to zero.</span></label>
+      <label class="option"><input type="radio" name="q3" value="B"><span class="opt-letter">B</span><span>Above a certain temperature, the resistivity of the filament material suddenly reduces to zero.</span></label>
+      <label class="option"><input type="radio" name="q3" value="C"><span class="opt-letter">C</span><span>Increased voltage increases the current, which raises the temperature, increasing the resistance.</span></label>
+      <label class="option"><input type="radio" name="q3" value="D"><span class="opt-letter">D</span><span>As the voltage increases, the current increases, increasing the temperature of the filament, causing a release of more conduction electrons.</span></label>
+    </div>
+    <div class="total-marks">(Total for Question 3 = 1 mark)</div>
+  </div>
+
+  <div class="question">
+    <div class="q-row"><span class="q-num">4</span><span class="q-text">Two wires are made of the same material with resistivity <em>ρ</em>. Wire X has resistance <em>R</em>. Wire Y is twice as long and has twice the diameter of wire X. Which row correctly gives the resistances for both wires?</span><span class="marks">[1]</span></div>
+    <table style="margin-left:32px; margin-top:10px;">
+      <tr><th></th><th>Wire X resistance</th><th>Wire Y resistance</th></tr>
+      <tr><td>A</td><td><em>R</em></td><td><em>R</em>/2</td></tr>
+      <tr><td>B</td><td><em>R</em></td><td><em>R</em></td></tr>
+      <tr><td>C</td><td><em>R</em></td><td>2<em>R</em></td></tr>
+      <tr><td>D</td><td><em>R</em></td><td>4<em>R</em></td></tr>
+    </table>
+    <div class="options" style="margin-top:10px; flex-direction:row; display:flex; gap:0;">
+      <label class="option"><input type="radio" name="q4" value="A"><span class="opt-letter">A</span></label>
+      <label class="option"><input type="radio" name="q4" value="B"><span class="opt-letter">B</span></label>
+      <label class="option"><input type="radio" name="q4" value="C"><span class="opt-letter">C</span></label>
+      <label class="option"><input type="radio" name="q4" value="D"><span class="opt-letter">D</span></label>
+    </div>
+    <div class="total-marks">(Total for Question 4 = 1 mark)</div>
+  </div>
+
+  <div class="question">
+    <div class="q-row"><span class="q-num">5</span><span class="q-text">Explain, in terms of energy, the difference between potential difference (pd) and electromotive force (emf).</span><span class="marks">[2]</span></div>
+    <textarea id="q5" rows="4" placeholder="Write your answer here..."></textarea>
+    <div class="total-marks">(Total for Question 5 = 2 marks)</div>
+  </div>
+
+  <div class="question">
+    <div class="q-row"><span class="q-num">6</span><span class="q-text">The planet Jupiter has a moon Io. Volcanic activity on Io releases clouds of electrons which travel at high speeds towards Jupiter. During a 15 s time period, 2.6 × 10<sup>26</sup> electrons reach Jupiter from Io. Calculate the current.</span><span class="marks">[3]</span></div>
+    <textarea id="q6" rows="4" placeholder="Show your working and give units..."></textarea>
+    <div class="total-marks">(Total for Question 6 = 3 marks)</div>
+  </div>
+
+  <div class="question">
+    <div class="q-row"><span class="q-num">7</span><span class="q-text">An integrated circuit uses strips of gold as connectors and strips of silicon as resistors. A strip of gold of cross-sectional area 3.0 × 10<sup>−6</sup> m<sup>2</sup> carries a current of 8.0 mA. The charge carrier density <em>n</em> is 6.0 × 10<sup>28</sup> m<sup>−3</sup>.</span></div>
+    <div class="q-row" style="margin-top:12px;"><span class="q-num"></span><span class="q-letter">(a)</span><span class="q-text">Show that the carrier drift velocity <em>v</em> for gold is approximately 3 × 10<sup>−7</sup> m s<sup>−1</sup>.</span><span class="marks">[2]</span></div>
+    <textarea id="q7a" rows="4" placeholder="Show your working..."></textarea>
+    <div class="q-row" style="margin-top:12px;"><span class="q-num"></span><span class="q-letter">(b)</span><span class="q-text">An approximate value of <em>v</em> for a sample of silicon of the same dimensions, carrying the same current, would be 0.2 m s<sup>−1</sup>. Compare this value with the one for gold and account for the difference in the values.</span><span class="marks">[2]</span></div>
+    <textarea id="q7b" rows="4" placeholder="Compare and explain..."></textarea>
+    <div class="q-row" style="margin-top:12px;"><span class="q-num"></span><span class="q-letter">(c)</span><span class="q-text">State and explain what happens to the resistance of a sample of silicon as its temperature increases.</span><span class="marks">[2]</span></div>
+    <textarea id="q7c" rows="3" placeholder="State and explain..."></textarea>
+    <div class="total-marks">(Total for Question 7 = 6 marks)</div>
+  </div>
+
+  <div class="question">
+    <div class="q-row"><span class="q-num">8</span><span class="q-letter">(a)</span><span class="q-text">Explain the difference between resistance and resistivity.</span><span class="marks">[2]</span></div>
+    <textarea id="q8a" rows="3" placeholder="Write your answer here..."></textarea>
+    <div class="q-row" style="margin-top:12px;"><span class="q-num"></span><span class="q-letter">(b)</span><span class="q-text">The resistivity of copper is 1.7 × 10<sup>−8</sup> Ω m. A copper wire is 0.50 m long and has a cross sectional area of 1.0 × 10<sup>−6</sup> m<sup>2</sup>. Calculate its resistance.</span><span class="marks">[2]</span></div>
+    <textarea id="q8b" rows="4" placeholder="Show your working and give units..."></textarea>
+    <div class="total-marks">(Total for Question 8 = 4 marks)</div>
+  </div>
+
+  <div class="question">
+    <div class="q-row"><span class="q-num">9</span><span class="q-text">When tidying a prep room, a teacher discovers a tray of resistance wires that have lost their labels. He decides to ask his students to carry out experiments to determine the material that each wire is made of by measuring the resistivity of the wires.</span></div>
+    <div class="q-row" style="margin-top:12px;"><span class="q-num"></span><span class="q-letter">(a)</span><span class="q-text">Explain why the teacher asks the students to measure the resistivity and not the resistance of the wires.</span><span class="marks">[2]</span></div>
+    <textarea id="q9a" rows="3" placeholder="Write your answer here..."></textarea>
+    <div class="q-row" style="margin-top:12px;"><span class="q-num"></span><span class="q-letter">(b)</span><span class="q-text">Describe a method to determine accurately the resistivity of one of the metal wires. Your description should include:</span><span class="marks">[9]</span></div>
+    <ul style="margin:8px 0 10px 52px; line-height:1.9; color:#333; font-size:13px;">
+      <li>the circuit diagram you would use</li>
+      <li>the quantities you would measure</li>
+      <li>the graph you would plot</li>
+      <li>how you would determine the resistivity</li>
+    </ul>
+    <textarea id="q9b" rows="10" placeholder="Describe your method in detail..."></textarea>
+    <div class="total-marks">(Total for Question 9 = 11 marks)</div>
+  </div>
+</div>
+
+<!-- Submit -->
+<div class="submit-section">
+  <h3>📤 Submit Your Answers to Mr Van Wyk</h3>
+  <p>Once you have answered all questions, click <strong>Submit Answers</strong>. Your responses will be sent directly to your teacher — you do not need an email app.</p>
+  <div class="email-row">
+    <button class="btn-submit" id="submitBtn" onclick="submitAnswers()">Submit Answers</button>
+  </div>
+  <div class="success-msg" id="successMsg">
+    ✅ <strong>Submitted successfully!</strong> Your answers have been sent directly to Mr Van Wyk at Doha British School. You do not need to do anything else.
+  </div>
+  <div class="error-msg" id="errorMsg" style="display:none; background:#fdf0f0; border:1px solid #e74c3c; border-radius:5px; padding:14px 20px; color:#c0392b; font-weight:600; margin-top:12px; font-size:13px;">
+    ⚠️ Submission failed. Please check your internet connection and try again, or take a screenshot of your answers.
+  </div>
+</div>
+
+<script>
+  // ─────────────────────────────────────────────────────────
+  // ⚙️  FORMSPREE ENDPOINT
+  // Sign up at formspree.io, create a form called
+  // "Electrical Quantities Exam", then paste your
+  // unique URL below replacing YOUR_CODE_HERE
+  // e.g. https://formspree.io/f/abcd1234
+  // ─────────────────────────────────────────────────────────
+  const FORMSPREE_URL = 'https://formspree.io/f/maqpwqjv';
+
+  // Auto-fill today's date
+  document.getElementById('sDate').valueAsDate = new Date();
+
+  function getMCQ(name) {
+    const el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '(not answered)';
+  }
+  function getVal(id) {
+    const el = document.getElementById(id);
+    return el ? (el.value.trim() || '(not answered)') : '(not answered)';
+  }
+
+  async function submitAnswers() {
+    const name = document.getElementById('sName').value.trim();
+    const cls  = document.getElementById('sClass').value.trim() || '—';
+    const date = document.getElementById('sDate').value || new Date().toLocaleDateString('en-GB');
+
+    if (!name) {
+      alert('Please enter your name at the top of the page before submitting.');
+      document.getElementById('sName').focus();
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+
+    const fullDetail =
+`ELECTRICAL QUANTITIES – EXAM ANSWERS
+==========================================
+Student: ${name}   |   Class: ${cls}   |   Date: ${date}   |   Time: ${timeStr}
+==========================================
+
+--- PAGE 1: ELECTRICAL QUANTITIES ---
+
+Q10(a) [2 marks] – State Ohm's law:
+${getVal('q10a')}
+
+Q10(b) [2 marks] – Graph descriptions (Fixed Resistor & Filament Lamp):
+${getVal('q10b')}
+
+Q10(c) [2 marks] – Why lamp does not obey Ohm's law:
+${getVal('q10c')}
+
+Q11(a) [1 mark] – Name of component:
+${getVal('q11a')}
+
+Q11(b) [1 mark] – Resistance at −0.7 V:
+${getVal('q11b')}
+
+Q11(c) [2 marks] – Calculate resistance at +0.7 V:
+${getVal('q11c')}
+
+Q11(d) [1 mark] – Practical use of component:
+${getVal('q11d')}
+
+Q12(a) [3 marks] – Experimental method to measure ink circle resistance:
+${getVal('q12a')}
+
+Q12(b) [2 marks] – Effect of twice-width ink line on resistance:
+${getVal('q12b')}
+
+--- PAGE 2: 4A EXAM PRACTICE ---
+
+Q1  [1 mark]  Unit equivalent to volt:          ${getMCQ('q1')}
+Q2  [1 mark]  Electrons through ammeter:         ${getMCQ('q2')}
+Q3  [1 mark]  Filament bulb I/V graph shape:     ${getMCQ('q3')}
+Q4  [1 mark]  Wire resistance comparison table:  ${getMCQ('q4')}
+
+Q5 [2 marks] – Difference between pd and emf (in terms of energy):
+${getVal('q5')}
+
+Q6 [3 marks] – Calculate current (Jupiter/Io electrons):
+${getVal('q6')}
+
+Q7(a) [2 marks] – Show drift velocity for gold ≈ 3 × 10⁻⁷ m s⁻¹:
+${getVal('q7a')}
+
+Q7(b) [2 marks] – Compare gold vs silicon drift velocity & explain:
+${getVal('q7b')}
+
+Q7(c) [2 marks] – Silicon resistance change with temperature:
+${getVal('q7c')}
+
+Q8(a) [2 marks] – Difference between resistance and resistivity:
+${getVal('q8a')}
+
+Q8(b) [2 marks] – Calculate resistance of copper wire:
+${getVal('q8b')}
+
+Q9(a) [2 marks] – Why measure resistivity (not resistance) to identify wires:
+${getVal('q9a')}
+
+Q9(b) [9 marks] – Full method to determine resistivity of a metal wire:
+${getVal('q9b')}
+
+==========================================
+Doha British School — Physics Department
+==========================================`;
+
+    try {
+      const response = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: `📝 Exam Submission: ${name} (${cls}) — Electrical Quantities`,
+          student_name: name,
+          class: cls,
+          date_submitted: `${date} at ${timeStr}`,
+
+          // MCQ answers at a glance
+          'Q1_unit_of_volt':           getMCQ('q1'),
+          'Q2_electrons_ammeter':      getMCQ('q2'),
+          'Q3_filament_IV_graph':      getMCQ('q3'),
+          'Q4_wire_resistance_table':  getMCQ('q4'),
+
+          // Written answers (short summaries as separate fields for easy scanning)
+          'Q5_pd_vs_emf':              getVal('q5'),
+          'Q6_jupiter_current':        getVal('q6'),
+          'Q8b_copper_resistance':     getVal('q8b'),
+
+          // Full submission for detailed marking
+          full_submission: fullDetail,
+        })
+      });
+
+      if (response.ok) {
+        document.getElementById('successMsg').style.display = 'block';
+        document.getElementById('errorMsg').style.display = 'none';
+        btn.textContent = '✅ Submitted';
+        btn.style.background = '#27ae60';
+      } else {
+        throw new Error('Server error: ' + response.status);
+      }
+    } catch(err) {
+      console.error(err);
+      document.getElementById('errorMsg').style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Retry Submission';
+      btn.style.background = '#e74c3c';
+    }
+  }
+</script>
+</body>
+</html>
 
